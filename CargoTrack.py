@@ -4,7 +4,7 @@ from deep_sort_realtime.deepsort_tracker import DeepSort
 import pandas as pd
 from datetime import datetime
 
-model = YOLO('C:\\Users\\David\\Desktop\\last.pt')
+model = YOLO('/home/gkap/Downloads/1700_26.10/last.pt')
 
 # Initialize Deep SORT tracker with adjusted parameters
 tracker = DeepSort(max_age=350,            # Retain ID longer for disappearing objects
@@ -12,7 +12,7 @@ tracker = DeepSort(max_age=350,            # Retain ID longer for disappearing o
                    max_cosine_distance=0.3, # Higher similarity threshold to avoid ID reassignment
                    nn_budget=100)
 
-video_path = 'C:\\Users\\David\\Desktop\\240520_062548_062648.mp4'
+video_path = '/home/gkap/Desktop/Heckathon/Set date/240520/240520_062548_062648.mp4'
 cap = cv2.VideoCapture(video_path)
 
 if not cap.isOpened():
@@ -24,7 +24,7 @@ excel_data = []
 
 def save_to_excel(data):
     df = pd.DataFrame(data, columns=['ID', 'Type', 'Start Date', 'End Date'])
-    df.to_excel('C:\\Users\\David\\Desktop\\tracked_objects.xlsx', index=False)
+    df.to_excel('tracked_objects.xlsx', index=False)
 
 while cap.isOpened():
     ret, frame = cap.read()
