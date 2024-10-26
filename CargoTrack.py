@@ -9,7 +9,7 @@ model = YOLO('C:\\Users\\David\\Desktop\\last.pt')
 # Initialize Deep SORT tracker with adjusted parameters
 tracker = DeepSort(max_age=350,            # Retain ID longer for disappearing objects
                    n_init=10,              # Frames needed to confirm an ID
-                   max_cosine_distance=0.2, # Higher similarity threshold to avoid ID reassignment
+                   max_cosine_distance=0.3, # Higher similarity threshold to avoid ID reassignment
                    nn_budget=100)
 
 video_path = 'C:\\Users\\David\\Desktop\\240520_062548_062648.mp4'
@@ -41,7 +41,7 @@ while cap.isOpened():
         #I set a threshold to detect only those objects with a confidence 
         # score higher than 45% to avoid detecting bins at the edges. 
         # We could probably set it a bit higher.
-        if conf > 0.45: 
+        if conf > 0.4: 
             detections.append(([x1, y1, x2 - x1, y2 - y1], conf, label))
 
     tracks = tracker.update_tracks(detections, frame=frame)
