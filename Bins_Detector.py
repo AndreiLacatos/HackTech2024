@@ -5,8 +5,13 @@ import pandas as pd
 from datetime import datetime
 import numpy as np
 import os
+import torch
 
-model = YOLO(r'Path to yoloV8')
+# Check if CUDA is available and set the device accordingly
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Using device: {device}")
+
+model = YOLO(r'Path to yoloV8').to(device)
 
 # Initialize Deep SORT tracker with adjusted parameters
 tracker = DeepSort(max_age=120, n_init=20, max_cosine_distance=0.35, nn_budget=300)
