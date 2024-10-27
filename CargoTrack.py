@@ -65,7 +65,7 @@ while cap.isOpened():
         
         track_id = track.track_id
         ltrb = track.to_ltrb()
-        label = track.get_det_class()
+        label = track.get_det_class()  # Get the class of the detected object
         current_bbox = [ltrb[0], ltrb[1], ltrb[2], ltrb[3]]
         
         # Record start date and initialize tracking information if new object
@@ -80,7 +80,12 @@ while cap.isOpened():
                 "frame_count": 1
             }
         else:
-            # Update end_date to the current time for active tracks
+            # Perform a class check to ensure the new detection matches the previously tracked class
+            if tracked_objects[track_id]["type"] != label:
+                # If the detected class does not match, skip updating this track
+                continue
+            
+            # Update end_date to the current time for active tracks if the class matches
             tracked_objects[track_id]["end_date"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             tracked_objects[track_id]["frame_count"] += 1
 
