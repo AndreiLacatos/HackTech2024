@@ -4,7 +4,7 @@ HackTech 2024
 
 Create python virtual environment via 
 ```
-python3 -m venv myenv
+/usr/bin/python3.11 -m venv myenv
 ```
 then activate it via
 ```

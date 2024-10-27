@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 import os
 from time import sleep
 import threading
+import inference
 
 app = tk.Tk()
 app.title("Tracker")
@@ -26,7 +27,7 @@ def on_browse_click():
     if file_paths:
         thread = threading.Thread(target=process_files, args=(file_paths,))
         thread.start()
-    
+
 
 def process_files(paths):
     for path in paths:
@@ -39,6 +40,10 @@ def process_files(paths):
 def analyze_file(path):
     print(path)
     sleep(1)
+    os.environ['ROBOFLOW_API_KEY'] = 'EfOIW9TQajYNgDrAGdZO'
+    model = inference.get_roboflow_model("cargotrack/3")
+    results = model.infer(image="/home/gkap/repos/hacktech/frame_10.jpg")
+    print(results)
 
 
 button = tk.Button(app, text="Browse", command=on_browse_click)
