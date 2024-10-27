@@ -6,7 +6,7 @@ from datetime import datetime
 import numpy as np
 import os
 
-model = YOLO('C:\\Users\\David\\Desktop\\models\\2030_26.10\\best.pt')
+model = YOLO('Path to yolov8 file.')
 
 # Initialize Deep SORT tracker with adjusted parameters
 tracker = DeepSort(max_age=120, n_init=20, max_cosine_distance=0.35, nn_budget=300)
@@ -107,10 +107,10 @@ def process_video(video_path, output_excel_name):
             current_frame_ids.add(track_id)
 
         # Display object count
-        count_text = f"Containers Detected: {len([obj for obj in tracked_objects.values() if obj['frame_count'] >= 10])}"
+        count_text = f"Bins Detected: {len([obj for obj in tracked_objects.values() if obj['frame_count'] >= 10])}"
         cv2.putText(frame, count_text, (1000, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
 
-        cv2.imshow("Containers Detector", frame)
+        cv2.imshow("Bins Detector", frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cap.release()
